@@ -1,63 +1,47 @@
-Dynamic Website Hosting on AWS
+# Dynamic Website Hosting on AWS
+## Project Overview
 
-Project Overview
+Shopwise is a dynamic web application hosted on AWS EC2 instances, leveraging a robust  architecture to ensure high availability, fault tolerance, and security. This DevOps project includes networking, load balancing, auto-scaling, and database management, making use of several AWS resources.
+## Diagram
 
-Shopwise is a dynamic web application hosted on AWS EC2 instances, leveraging a robust  architecture to ensure high availability, fault tolerance, and security. This Dev Ops project includes networking, load balancing, auto-scaling, and database management, making use of several AWS resources.
+![Alt text](https://github.com/DuoDuo-Cat/Deploy-a-Dynamic-Web-App-on-AWS/blob/main/Reference%20Diagram.png)
+## Architecture Overview
 
-Architecture Overview
+### Networking and Security
 
-Networking and Security
+- Configured a **Virtual Private Cloud (VPC)** with both **public and private subnets** across two availability zones for high reliability.
+- Deployed an **Internet Gateway** to facilitate connectivity between resources in the VPC and the public internet.
+- Configured **Security Groups (SGs)** to act as network firewalls, with a total of five SGs:
+  - **ALB SG** (Application Load Balancer Security Group)
+  - **EICE SG** (EC2 Instance Connect Endpoint Security Group)
+  - **Data Migrate SG** (Data Migration Security Group)
+  - **Web Server SG** (Web Application Security Group)
+  - **RDS SG** (Database Security Group)
 
-Configured a Virtual Private Cloud (VPC) with both public and private subnets across two availability zones for high reliability.
+### Public and Private Resource Deployment
 
-Deployed an Internet Gateway to facilitate connectivity between resources in the VPC and the public internet.
+- **Public Resources**:
+  - **NAT Gateway**: Enables instances in private subnets to access the internet.
+  - **Application Load Balancer (ALB)**: Distributes web traffic evenly across multiple EC2 instances.
+- **Private Resources**:
+  - **Web Servers (EC2 Instances)**: Configured in private subnets for enhanced security.
+  - **Database Servers (RDS MySQL)**: Securely stored in private subnets.
 
-Configured Security Groups (SGs) to act as network firewalls, with a total of five SGs:
+### Application Hosting and Data Management
 
-ALB SG (Application Load Balancer Security Group)
+- Utilized **EC2 Instance Connect Endpoint (EICE)** for migrating SQL data to the RDS database using **Flyway**.
+- Configured **Apache, PHP extensions, and MySQL** on EC2 instances for web hosting.
+- Set up **Amazon Route 53 (R53) and SSL certificates** for secure domain name access.
+- Created an **Auto Scaling Group (ASG)** to ensure website availability, scalability, and fault tolerance.
+- Configured **Simple Notification Service (SNS)** for ASG activity alerts.
+- Implemented an **HTTPS listener** on ALB to redirect HTTP traffic.
+- Utilized **Amazon S3** to store web files for data migration and configuration.
 
-EICE SG (EC2 Instance Connect Endpoint Security Group)
-
-Data Migrate SG (Data Migration Security Group)
-
-Web Server SG (Web Application Security Group)
-
-RDS SG (Database Security Group)
-
-Public and Private Resource Deployment
-
-Public Resources:
-
-NAT Gateway: Enables instances in private subnets to access the internet.
-
-Application Load Balancer (ALB): Distributes web traffic evenly across multiple EC2 instances.
-
-Private Resources:
-
-Web Servers (EC2 Instances): Configured in private subnets for enhanced security.
-
-Database Servers (RDS MySQL): Securely stored in private subnets.
-
-Application Hosting and Data Management
-
-Utilized EC2 Instance Connect Endpoint (EICE) for migrating SQL data to the RDS database using Flyway.
-
-Configured Apache, PHP extensions, and MySQL on EC2 instances for web hosting.
-
-Set up Amazon Route 53 (R53) and SSL certificates for secure domain name access.
-
-Created an Auto Scaling Group (ASG) to ensure website availability, scalability, and fault tolerance.
-
-Configured Simple Notification Service (SNS) for ASG activity alerts.
-
-Implemented an HTTPS listener on ALB to redirect HTTP traffic.
-
-Utilized Amazon S3 to store web files for data migration and configuration.
-
-Installation and Setup
+## Installation and Setup
 
 To configure the Shopwise app on an EC2 instance, the following script was used:
 
+```bash
 #!/bin/bash
 # Update system packages
 sudo yum update -y
@@ -104,11 +88,13 @@ sudo vi .env
 
 # Restart Apache Server
 sudo service httpd restart
+```
 
-SQL Data Migration
+## SQL Data Migration
 
 To migrate SQL data from EC2 to RDS database using Flyway, the following script was used:
 
+```bash
 #!/bin/bash
 
 S3_URI=s3://ddcat-sql-files/V1__shopwise.sql
@@ -135,7 +121,9 @@ flyway -url=jdbc:mysql://"$RDS_ENDPOINT":3306/"$RDS_DB_NAME" \
   -password="$RDS_DB_PASSWORD" \
   -locations=filesystem:sql \
   migrate
+```
 
-Conclusion
+## Conclusion
 
 This AWS DevOps project successfully deployed a highly available and secure dynamic web application using EC2, RDS, ALB, ASG, and other AWS services. The implementation ensures optimal performance, scalability, and security for end users accessing the Shopwise web application.
+
