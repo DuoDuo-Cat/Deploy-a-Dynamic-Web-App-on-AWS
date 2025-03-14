@@ -1,7 +1,9 @@
 # Dynamic Website Hosting on AWS
+
 ## Project Overview
 
-Shopwise is a dynamic web application hosted on AWS EC2 instances, leveraging a robust  architecture to ensure high availability, fault tolerance, and security. This DevOps project includes networking, load balancing, auto-scaling, and database management, making use of several AWS resources.
+Shopwise is a dynamic web application hosted on AWS EC2 instances, leveraging a robust architecture to ensure high availability, fault tolerance, and security. This DevOps project includes networking, load balancing, auto-scaling, and database management, making use of several AWS resources.
+
 ## Diagram
 
 ![Alt text](https://github.com/DuoDuo-Cat/Deploy-a-Dynamic-Web-App-on-AWS/blob/main/Reference%20Diagram.png)
@@ -122,6 +124,22 @@ flyway -url=jdbc:mysql://"$RDS_ENDPOINT":3306/"$RDS_DB_NAME" \
   -locations=filesystem:sql \
   migrate
 ```
+
+## Repository Structure
+
+```
+├── README.md  # Project documentation
+├── Reference Diagram.png  # Architecture diagram showcasing AWS infrastructure
+├── Shopwise.png  # Application UI screenshot
+├── install website config.sh  # Script for setting up and configuring the web application on EC2
+├── sql_migration.txt  # SQL migration script for database setup using Flyway
+```
+
+## Additional Resources
+
+- [AWS EC2 Documentation](https://docs.aws.amazon.com/ec2/index.html)
+- [AWS RDS Documentation](https://docs.aws.amazon.com/rds/index.html)
+- [Flyway Database Migrations](https://documentation.red-gate.com/fd/command-line-277579359.html)
 
 ## Conclusion
 
