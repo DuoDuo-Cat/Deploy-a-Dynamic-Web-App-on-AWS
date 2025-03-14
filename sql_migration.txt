@@ -4,7 +4,7 @@ S3_URI=s3://ddcat-sql-files/V1__shopwise.sql
 RDS_ENDPOINT=dev-rds-db.cbk2oq0wamsk.us-east-1.rds.amazonaws.com
 RDS_DB_NAME=applicationdb
 RDS_DB_USERNAME=ddcat
-RDS_DB_PASSWORD=pepehappy777
+RDS_DB_PASSWORD=
 
 # Update all packages
 sudo yum update -y
